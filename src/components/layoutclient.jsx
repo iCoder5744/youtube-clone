@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Sidebar from "./sidebar";
+import Navbar from "./navbar";
+
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 
 export default function LayoutClient({ children }) {
@@ -11,12 +13,14 @@ export default function LayoutClient({ children }) {
     <ThemeProviderWrapper>
       <div style={{ display: "flex", height: "100vh" }}>
         <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div
-          className={`transition-all duration-300 ${
-            isOpen ? "w-[calc(100%-200px)]" : "w-[95%]"
-          } p-20 flex-1`}
-        >
-          {children}
+
+        <div className="w-full">
+          <Navbar />
+          <div
+            className={"transition-all duration-300 border [w-100%] mt-14 flex-1"}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </ThemeProviderWrapper>

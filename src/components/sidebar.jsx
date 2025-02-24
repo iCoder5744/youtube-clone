@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -30,12 +31,13 @@ import {
     FlagOutlined as FlagOutlinedIcon,
     HelpOutlineOutlined as HelpOutlineOutlinedIcon,
     FeedbackOutlined as FeedbackOutlinedIcon,
+    FitScreen,
 } from "@mui/icons-material";
 
-import { useState } from "react";
+
 
 const menuItems1 = [
-    { href: "/home", icon: HomeIcon, label: "Home" },
+    { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/shorts", icon: ShopTwoOutlinedIcon, label: "Shorts" },
     { href: "/subscriptions", icon: SubscriptionsOutlinedIcon, label: "Subscriptions" },
 ];
@@ -73,31 +75,33 @@ const settingsItems = [
 ];
 
 
-export default function Sidebar({ isOpen, setIsOpen }) {
+const Sidebar = () => {
+    const [isOpen, setIsOpen] = useState(true);
+
     const pathname = usePathname(); // Get current route
 
     return (
         <div className="flex flex-col">
-            <div className="fixed flex items-center justify-between w-[220px] bg-white px-4 py-2 shadow-sm">
+            <div className="fixed flex items-center justify-between w-[220px] bg-white px-4 py-2 shadow-sm overflow-hidden">
                 <div className="w-[58px]">
                     <IconButton onClick={() => setIsOpen(!isOpen)}>
                         <MenuIcon />
                     </IconButton>
                 </div>
-                <div className="w-[140px]">
+                <div className="w-[140px] h-5">
                     <Link href="/">
-                        <Image src="/images/logo.png" alt="Website Logo" width={94} height={50} />
+                        <Image src="/images/logo.png" alt="Website Logo" width={94} height={5}  className="overflow-x-hidden"/>
                     </Link>
                 </div>
             </div>
 
-            <div className={`mt-14 bg-gray-200 transition-all duration-300 h-[calc(100vh - 14)] outset-shadow-xs ${isOpen ? "w-[220px]" : "w-0"} overflow-hidden hover:overflow-y-auto `}>
+            <div className={`mt-14 bg-gray-50 transition-all duration-300 h-[calc(100vh - 14)] outset-shadow-xs ${isOpen ? "w-[220px]" : "w-0"} overflow-hidden hover:overflow-y-auto `}>
 
                 <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-2 pb-4">
                     {menuItems1.map(({ href, icon: Icon, label }) => (
                         <Link key={href} href={href}
                             className={`flex text-start items-center px-4 rounded-xl transition-all duration-200 
-                            ${(pathname === href || (pathname === "/" && href === "/home")) ? "bg-gray-100" : "hover:bg-gray-100"}`}>
+                            ${(pathname === href || (pathname === "/" && href === "/home")) ? "bg-gray-100" : "hover:bg-gray-200"}`}>
                             <Icon className="w-6 h-6" />
                             <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
                         </Link>
@@ -108,7 +112,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     {profileItem.map(({ href, label, icon: Icon }) => (
                         <Link key={href} href={href}
                             className={`flex justify-start items-center px-4 py-2 rounded-xl transition-all duration-200 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-100"}`}>
+                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
                             <li className="w-10 text-md font-semibold">{label}</li>
                             <Icon className="w-5 h-5" />
                         </Link>
@@ -120,7 +124,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     {menuItems2.map(({ href, icon: Icon, label }) => (
                         <Link key={href} href={href}
                             className={`flex text-start items-center px-4 rounded-xl transition-all duration-200 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-100"}`}>
+                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
                             <Icon className="w-6 h-6" />
                             <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
                         </Link>
@@ -131,10 +135,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     <h1 className="w-full pl-4 py-2 text-md font-semibold">Explore</h1>
                     {exploreItems.map(({ href, icon: Icon, label }) => (
                         <Link key={href} href={href}
-                            className={`flex text-start items-center px-4 rounded-xl transition-all duration-200 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-100"}`}>
+                            className={`flex text-start items-center pl-4 rounded-xl transition-all duration-200 
+                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
                             <Icon className="w-6 h-6" />
-                            <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
+                            <li className=" w-full pl-6 py-2 text-sm font-normal">{label}</li>
                         </Link>
                     ))}
                 </ul>
@@ -143,7 +147,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     {settingsItems.map(({ href, icon: Icon, label }) => (
                         <Link key={href} href={href}
                             className={` flex text-start items-center rounded-xl transition-all duration-200 px-4 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-100"}`}>
+                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
                             <Icon className="w-6 h-6" />
                             <li className="w-full pl-6 py-2 text-sm">{label}</li>
                         </Link>
@@ -152,4 +156,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             </div>
         </div>
     );
-}
+};
+
+export default Sidebar

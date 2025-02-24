@@ -2,7 +2,7 @@
 
 export default function Home() {
   return (
-    <div >
+    <div className='w-full flex flex-row px-10 py-4 '>
       <h1>Home Page</h1>
       
     </div>
