@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import LayoutClient from "@/components/layoutclient";
+import LayoutClient from "@/components/LayoutClient";
 
 export const metadata = {
   title: "YouTube",

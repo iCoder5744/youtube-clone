@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Sidebar from "./sidebar";
-import Navbar from "./navbar";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
+
 
 export default function LayoutClient({ children }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -17,7 +18,7 @@ export default function LayoutClient({ children }) {
         <div className="w-full">
           <Navbar />
           <div
-            className={"transition-all duration-300 border [w-100%] mt-14 flex-1"}
+            className={"transition-all duration-300  [w-100%] mt-14 flex-1"}
           >
             {children}
           </div>

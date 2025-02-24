@@ -95,7 +95,7 @@ const Sidebar = () => {
                 </div>
             </div>
 
-            <div className={`mt-14 bg-gray-50 transition-all duration-300 h-[calc(100vh - 14)] outset-shadow-xs ${isOpen ? "w-[220px]" : "w-0"} overflow-hidden hover:overflow-y-auto `}>
+            <div className={` mt-14 bg-gray-50 transition-all duration-300 h-[calc(100vh - 14)] outset-shadow-xs ${isOpen ? "w-[220px]" : "w-0"} overflow-hidden hover:overflow-y-auto `}>
 
                 <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-2 pb-4">
                     {menuItems1.map(({ href, icon: Icon, label }) => (
