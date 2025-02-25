@@ -1,5 +1,8 @@
 import "@/app/globals.css";
-import LayoutClient from "@/components/LayoutClient";
+import MainLayout from "@/components/MainLayout";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import { SidebarProvider } from "@/components/Sidebar/SidebarContext";
 
 export const metadata = {
   title: "YouTube",
@@ -12,7 +15,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.png" sizes="any" type="image/png" />
       </head>
       <body>
-        <LayoutClient>{children}</LayoutClient>
+      <SidebarProvider>
+          <MainLayout>{children}</MainLayout>
+        </SidebarProvider>
       </body>
     </html>
   );

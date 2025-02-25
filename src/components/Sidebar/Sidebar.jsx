@@ -1,12 +1,10 @@
 "use client"; // ✅ Client Component
 
 import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+
 import { usePathname } from "next/navigation";
-import { IconButton } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
+import { useSidebar } from "./SidebarContext";
 import {
     Home as HomeIcon,
     ShopTwoOutlined as ShopTwoOutlinedIcon,
@@ -31,10 +29,7 @@ import {
     FlagOutlined as FlagOutlinedIcon,
     HelpOutlineOutlined as HelpOutlineOutlinedIcon,
     FeedbackOutlined as FeedbackOutlinedIcon,
-    FitScreen,
 } from "@mui/icons-material";
-
-
 
 const menuItems1 = [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -74,29 +69,18 @@ const settingsItems = [
     { href: "/send-feedback", icon: FeedbackOutlinedIcon, label: "Send Feedback" },
 ];
 
-
 const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(true);
-
+    const { isOpen , toggleSidebar } = useSidebar();
     const pathname = usePathname(); // Get current route
 
     return (
-        <div className="flex flex-col">
-            <div className="fixed flex items-center justify-between  w-[150px] sm:w-[220px] bg-white px-4 py-4 sm:py-2 shadow-sm overflow-hidden">
-                <div className="w-[58px] hidden sm:block">
-                    <IconButton onClick={() => setIsOpen(!isOpen)}>
-                        <MenuIcon />
-                    </IconButton>
-                </div>
-                <div className="w-[140px] h-5">
-                    <Link href="/">
-                        <Image src="/images/logo.png" alt="Website Logo" width={94} height={5}  className="overflow-x-hidden"/>
-                    </Link>
-                </div>
-            </div>
-
-            <div className={`hidden sm:block mt-14 bg-gray-50 transition-all duration-300 h-[calc(100vh - 14)] outset-shadow-xs ${isOpen ? "w-[220px]" : "w-0"} overflow-hidden hover:overflow-y-auto `}>
-
+        <div
+            className={`fixed top-0 left-0 mt-16 max-sm:hidden bg-gray-50 h-screen transition-all duration-300 
+                ${isOpen ? "w-[220px]" : "w-0"} 
+                lg:relative overflow-hidden hover:overflow-y-auto`}
+        >
+            {/* Sidebar Content */}
+            <div className="h-full overflow-y-auto  pb-4">
                 <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-2 pb-4">
                     {menuItems1.map(({ href, icon: Icon, label }) => (
                         <Link key={href} href={href}
@@ -119,7 +103,6 @@ const Sidebar = () => {
                     ))}
                 </ul>
 
-
                 <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-2 pb-4">
                     {menuItems2.map(({ href, icon: Icon, label }) => (
                         <Link key={href} href={href}
@@ -138,7 +121,7 @@ const Sidebar = () => {
                             className={`flex text-start items-center pl-4 rounded-xl transition-all duration-200 
                             ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
                             <Icon className="w-6 h-6" />
-                            <li className=" w-full pl-6 py-2 text-sm font-normal">{label}</li>
+                            <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
                         </Link>
                     ))}
                 </ul>
@@ -146,7 +129,7 @@ const Sidebar = () => {
                 <ul className="flex flex-col space-y-1 list-none mx-2 pt-2 mb-6">
                     {settingsItems.map(({ href, icon: Icon, label }) => (
                         <Link key={href} href={href}
-                            className={` flex text-start items-center rounded-xl transition-all duration-200 px-4 
+                            className={`flex text-start items-center rounded-xl transition-all duration-200 px-4 
                             ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
                             <Icon className="w-6 h-6" />
                             <li className="w-full pl-6 py-2 text-sm">{label}</li>
@@ -158,4 +141,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar
+export default Sidebar;
