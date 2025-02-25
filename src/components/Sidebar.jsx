@@ -82,8 +82,8 @@ const Sidebar = () => {
 
     return (
         <div className="flex flex-col">
-            <div className="fixed flex items-center justify-between w-[220px] bg-white px-4 py-2 shadow-sm overflow-hidden">
-                <div className="w-[58px]">
+            <div className="fixed flex items-center justify-between  w-[150px] sm:w-[220px] bg-white px-4 py-4 sm:py-2 shadow-sm overflow-hidden">
+                <div className="w-[58px] hidden sm:block">
                     <IconButton onClick={() => setIsOpen(!isOpen)}>
                         <MenuIcon />
                     </IconButton>
@@ -95,7 +95,7 @@ const Sidebar = () => {
                 </div>
             </div>
 
-            <div className={` mt-14 bg-gray-50 transition-all duration-300 h-[calc(100vh - 14)] outset-shadow-xs ${isOpen ? "w-[220px]" : "w-0"} overflow-hidden hover:overflow-y-auto `}>
+            <div className={`hidden sm:block mt-14 bg-gray-50 transition-all duration-300 h-[calc(100vh - 14)] outset-shadow-xs ${isOpen ? "w-[220px]" : "w-0"} overflow-hidden hover:overflow-y-auto `}>
 
                 <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-2 pb-4">
                     {menuItems1.map(({ href, icon: Icon, label }) => (

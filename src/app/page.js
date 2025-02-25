@@ -4,7 +4,7 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className='flex items-center justify-center w-full h-screen m-auto '>Home</div>
   )
 }
 
