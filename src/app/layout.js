@@ -1,7 +1,5 @@
 import "@/app/globals.css";
 import MainLayout from "@/components/MainLayout";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar/Sidebar";
 import { SidebarProvider } from "@/components/Sidebar/SidebarContext";
 
 export const metadata = {

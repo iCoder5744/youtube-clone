@@ -4,24 +4,29 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar/Sidebar";
 import { useSidebar } from "./Sidebar/SidebarContext";
 
-// Separate client-side wrapper
 function MainLayout({ children }) {
-    const { isOpen } = useSidebar();
-  
-    return (
-      <>
-                <Navbar />
-                <div className="flex flex-1 overflow-hidden">
-              {/* Sidebar (Fixed height, only scrolls when hovered) */}
-              <Sidebar />
+  const { isOpen } = useSidebar(); // Get sidebar state
 
-              {/* Children (Main content should scroll independently) */}
-              <div className="flex-1 overflow-hidden hover:overflow-scroll min-h-screen">{children}</div>
+  return (
+    <>
+      <Navbar />
+      <div className="flex">
+        {/* Sidebar (Fixed, dynamic width based on toggle state) */}
+        <div>
+          <Sidebar />
+        </div>
+
+        {/* Main Content (Adjust margin dynamically) */}
+        <div
+          className={`flex-1 overflow-y-auto mt-14 min-h-screen transition-all duration-300 w-full ${
+            isOpen ? "sm:ml-[220px]" : "ml-0"
+          } p-4`}
+        >
+          {children}
+        </div>
       </div>
+    </>
+  );
+}
 
-      </>
-
-    );
-  }
-
-  export default MainLayout
+export default MainLayout;
