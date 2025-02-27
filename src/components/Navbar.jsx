@@ -14,6 +14,13 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import GoogleIcon from '@mui/icons-material/Google';
+import SwitchAccountOutlinedIcon from '@mui/icons-material/SwitchAccountOutlined'; import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import SubscriptionsOutlinedIcon from '@mui/icons-material/SubscriptionsOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import { useSidebar } from './Sidebar/SidebarContext';
 
 const Navbar = () => {
@@ -179,10 +186,9 @@ const Navbar = () => {
           </div>
 
           {isProfileDropdownVisible && (
-            <div className='absolute w-[270px] h-fit mt-2 gap-y-1 border rounded-md flex flex-col items-start bg-white shadow-md z-50 right-10 top-0'>
-
-              {/* User Profile Section */}
-              <div className='w-full h-[120px] border-b px-2 py-2 flex items-start justify-start gap-x-1'>
+            <div className='absolute w-[260px] md:w-[280px] h-fit mt-2 gap-y-1 border rounded-md flex flex-col items-start bg-white shadow-md z-50 right-0 md:right-10 top-8 md:top-0 max-h-[650px] overflow-hidden'>
+              {/* User Profile Section (Sticky) */}
+              <div className='sticky top-0 z-40 w-full h-[120px] border-b px-2 py-2 flex items-start justify-start gap-x-1 bg-white'>
                 <div className='w-[16%] h-full py-2'>
                   <div className='w-[40px] h-[40px] rounded-full bg-gray-200'>
                     {profileImage && (
@@ -206,45 +212,56 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* Account Settings Section */}
-              <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
-                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">Google Account</label>
-                </Link>
-                <Link href="/switch-account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">Switch account</label>
-                </Link>
-                <Link href="/sign-out" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">Sign out</label>
-                </Link>
-              </ul>
+              {/* User Settings Section (Scrollable) */}
+              <div className='z-30 w-full overflow-hidden hover:overflow-y-auto'>
+                {/* Account Settings Section */}
+                <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
+                  <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <GoogleIcon className='w-6 h-6 font-normal' />
+                    <label className="text-[14px] md:text-[15px]">Google Account</label>
+                  </Link>
+                  <Link href="/switch-account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <SwitchAccountOutlinedIcon className='w-6 h-6' />
+                    <label className="text-[14px] md:text-[15px]">Switch account</label>
+                  </Link>
+                  <Link href="/sign-out" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <ExitToAppIcon className='w-6 h-6' />
+                    <label className="text-[14px] md:text-[15px]">Sign out</label>
+                  </Link>
+                </ul>
 
-              {/* YouTube Features Section */}
-              <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
-                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">YouTube Studio</label>
-                </Link>
-                <Link href="/switch-account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">Purchases and Memberships</label>
-                </Link>
-              </ul>
+                {/* YouTube Features Section */}
+                <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
+                  <Link href="/youtube-studio" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <SubscriptionsOutlinedIcon className='w-6 h-6' />
+                    <label className="text-[14px] md:text-[15px]">YouTube Studio</label>
+                  </Link>
+                  <Link href="/membership" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <MonetizationOnOutlinedIcon className='w-6 h-6' />
+                    <label className="text-[14px] md:text-[15px]">Purchases and Memberships</label>
+                  </Link>
+                </ul>
 
-              {/* Settings Section */}
-              <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-4'>
-                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">Settings</label>
-                </Link>
-              </ul>
+                {/* Settings Section */}
+                <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-4'>
+                  <Link href="/settings" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <SettingsOutlinedIcon className='w-6 h-6' />
+                    <label className="text-[14px] md:text-[15px]">Settings</label>
+                  </Link>
+                </ul>
 
-              {/* Help and Feedback Section */}
-              <ul className='w-full flex flex-col gap-y-2 px-2 py-4'>
-                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">Help</label>
-                </Link>
-                <Link href="/switch-account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                  <label className="text-[14px] md:text-[16px]">Send Feedback</label>
-                </Link>
-              </ul>
+                {/* Help and Feedback Section */}
+                <ul className='w-full flex flex-col gap-y-2 px-2 py-4'>
+                  <Link href="/help" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <HelpOutlineOutlinedIcon className='w-6 h-6' />
+                    <label className="text-[14px] md:text-[15px]">Help</label>
+                  </Link>
+                  <Link href="/feedback" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                    <FeedbackOutlinedIcon className='w-6 h-6' />
+                    <label className="text-[14px] md:text-[15px]">Send Feedback</label>
+                  </Link>
+                </ul>
+              </div>
             </div>
           )}
         </div>
