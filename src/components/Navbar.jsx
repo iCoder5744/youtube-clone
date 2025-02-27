@@ -20,11 +20,11 @@ const Navbar = () => {
   const { isOpen, toggleSidebar } = useSidebar();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
-  const [isCreateDropdownVisible, setIsCreateDropdownVisible] = useState(false); // State for Create dropdown
-  const fileInputRef = useRef(null);
-  const createDropdownRef = useRef(null); // Ref for Create dropdown
+  const [isCreateDropdownVisible, setIsCreateDropdownVisible] = useState(false);
+  const [isProfileDropdownVisible, setIsProfileDropdownVisible] = useState(false);
+  const createDropdownRef = useRef(null);
+  const profileDropdownRef = useRef(null);
 
-  // Load profile image from localStorage on component mount
   useEffect(() => {
     const savedImage = localStorage.getItem('profileImage');
     if (savedImage) {
@@ -32,11 +32,13 @@ const Navbar = () => {
     }
   }, []);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (createDropdownRef.current && !createDropdownRef.current.contains(event.target)) {
         setIsCreateDropdownVisible(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setIsProfileDropdownVisible(false);
       }
     };
 
@@ -50,25 +52,12 @@ const Navbar = () => {
     setIsSearchVisible(!isSearchVisible);
   };
 
-  const handleProfileClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imageUrl = reader.result;
-        setProfileImage(imageUrl);
-        localStorage.setItem('profileImage', imageUrl);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const toggleCreateDropdown = () => {
     setIsCreateDropdownVisible(!isCreateDropdownVisible);
+  };
+
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownVisible(!isProfileDropdownVisible);
   };
 
   return (
@@ -77,7 +66,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-4 py-4 sm:py-2">
         <div onClick={toggleSidebar} className="w-[58px] hidden sm:block">
           <IconButton>
-            <MenuIcon />
+            <MenuIcon style={{ fontSize: '24px', minWidth: '24px', minHeight: '24px' }} /> {/* Force size */}
           </IconButton>
         </div>
         <div className="flex items-center justify-start w-[120px] h-full">
@@ -96,12 +85,18 @@ const Navbar = () => {
               placeholder='Search'
               className='w-full outline-none pl-4 py-2 bg-transparent text-gray-500'
             />
-            <SearchRoundedIcon className='w-[40px] md:w-[70px] border-l-2 h-10 py-2 font-light text-gray-400 bg-gray-100 hover:bg-gray-200 transition-all duration-200 border rounded-r-full cursor-pointer' />
+            <SearchRoundedIcon
+              style={{ fontSize: '24px', minWidth: '60px', minHeight: '40px' }} // Force size
+              className='border-l-2 h-10 py-2 font-light text-gray-400 bg-gray-100 hover:bg-gray-200 transition-all duration-200 border rounded-r-full cursor-pointer'
+            />
           </div>
-          <KeyboardVoiceOutlinedIcon className='w-[40px] h-10 ml-3 p-2 text-gray-500 bg-gray-100 hover:bg-gray-200 transition-all duration-200 rounded-full cursor-pointer' />
+          <KeyboardVoiceOutlinedIcon
+            style={{ fontSize: '24px', minWidth: '40px', minHeight: '40px' }} // Force size
+            className='ml-3 p-2 text-gray-500 bg-gray-100 hover:bg-gray-200 transition-all duration-200 rounded-full cursor-pointer'
+          />
         </div>
 
-        {/* ----------------- visible in small screen -------------------   */}
+        {/* Visible in small screen */}
         <div className='sm:hidden w-full flex items-center justify-end mt-1'>
           {isSearchVisible ? (
             <div className='flex items-center w-[100%] transition-all duration-300 ease-in-out'>
@@ -112,14 +107,16 @@ const Navbar = () => {
                   className='w-full outline-none pl-4 py-1 bg-transparent text-gray-500 transition-all duration-300'
                 />
                 <CloseIcon
-                  className='w-[40px] h-10 py-2 border-l font-light text-gray-400 cursor-pointer'
+                  style={{ fontSize: '24px', minWidth: '40px', minHeight: '40px' }} // Force size
+                  className='h-10 py-2 border-l font-light text-gray-400 cursor-pointer'
                   onClick={toggleSearch}
                 />
               </div>
             </div>
           ) : (
             <SearchRoundedIcon
-              className='w-7 h-7 text-gray-400 cursor-pointer'
+              style={{ fontSize: '24px', minWidth: '28px', minHeight: '28px' }} // Force size
+              className='text-gray-400 cursor-pointer'
               onClick={toggleSearch}
             />
           )}
@@ -131,58 +128,126 @@ const Navbar = () => {
         {/* Create Button with Dropdown */}
         <div className="hidden sm:block relative" ref={createDropdownRef}>
           <Button
-            style={{ textTransform: 'none' }}
-            className="flex flex-row items-center text-center text-[12px] md:text-[14px] text-gray-600 font-semibold rounded-full px-2 py-1 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
+            style={{ textTransform: 'none', minWidth: '90px', minHeight: '40px', color: 'black' }} // Force size
+            className="flex flex-row items-center text-center text-[12px] md:text-[14px] text-gray-600 font-medium rounded-full px-2 py-1 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
             onClick={toggleCreateDropdown}
           >
-            <AddIcon className='text-gray-500 text-[16px] font-extralight md:text-[20px]' />
+            <AddIcon style={{ fontSize: '24px', minWidth: '24px', minHeight: '24px', color: 'gray' }} /> {/* Force size */}
             <span className="hidden sm:inline">Create</span>
           </Button>
 
           {/* Dropdown Content */}
           {isCreateDropdownVisible && (
-            <div className='absolute sm:w-[154px] md:w-[170px] xl:w-[180px] h-fit mt-2 p-2 gap-y-3 border rounded-md flex flex-col items-center justify-center shadow-lg z-50 -left-1 md:left-0'>
-              <div className='w-full px-2 list-none py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                <VideoCameraBackOutlinedIcon className='text-gray-600 w-5 h-5 md:w-6 md:h-6' />
-                <li className="text-[14px] md:text-[16px]">Upload Video</li>
-              </div>
-              <div className='w-full px-2 list-none py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                <SensorsOutlinedIcon className='text-gray-600 w-5 h-5 md:w-6 md:h-6' />
-                <li className="text-[14px] md:text-[16px]">Go Live</li>
-              </div>
-              <div className='w-full px-2 list-none py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                <AddBoxOutlinedIcon className='text-gray-600 w-5 h-5 md:w-6 md:h-6' />
-                <li className="text-[14px] md:text-[16px]">Create Post</li>
-              </div>
+            <div className='absolute sm:w-[160px] md:w-[170px] xl:w-[180px] h-fit mt-2 p-2 gap-y-3 border rounded-md flex flex-col items-center justify-center shadow-md z-50 left-0'>
+              <Link href="/upload-video" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                <VideoCameraBackOutlinedIcon style={{ fontSize: '24px', minWidth: '24px', minHeight: '24px' }} /> {/* Force size */}
+                <label className="text-[14px] md:text-[16px]">Upload Video</label>
+              </Link>
+              <Link href="/go-live" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                <SensorsOutlinedIcon style={{ fontSize: '24px', minWidth: '24px', minHeight: '24px' }} /> {/* Force size */}
+                <label className="text-[14px] md:text-[16px]">Go Live</label>
+              </Link>
+              <Link href="/create-post" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                <AddBoxOutlinedIcon style={{ fontSize: '24px', minWidth: '24px', minHeight: '24px' }} /> {/* Force size */}
+                <label className="text-[14px] md:text-[16px]">Create Post</label>
+              </Link>
             </div>
           )}
         </div>
 
         {/* Notifications Icon */}
         <div className="hidden sm:block">
-          <NotificationsNoneIcon className="text-[24px] md:text-[28px] text-gray-500 cursor-pointer hover:text-gray-800" />
+          <NotificationsNoneIcon
+            style={{ fontSize: '24px', minWidth: '24px', minHeight: '24px' }} // Force size
+            className="text-gray-500 cursor-pointer hover:text-gray-800"
+          />
         </div>
 
         {/* Profile Image */}
-        <div
-          className="w-9 h-9 bg-gray-300 rounded-full my-1 cursor-pointer"
-          onClick={handleProfileClick}
-        >
-          {profileImage && (
-            <img
-              src={profileImage}
-              alt="Profile"
-              className="w-full h-full rounded-full object-cover"
-            />
+        <div className="relative" ref={profileDropdownRef}>
+          <div
+            className="w-9 h-9 bg-gray-300 rounded-full my-1 cursor-pointer"
+            onClick={toggleProfileDropdown}
+          >
+            {profileImage && (
+              <img
+                src={profileImage}
+                alt="Profile"
+                className="w-full h-full rounded-full object-cover"
+              />
+            )}
+          </div>
+
+          {isProfileDropdownVisible && (
+            <div className='absolute w-[270px] h-fit mt-2 gap-y-1 border rounded-md flex flex-col items-start bg-white shadow-md z-50 right-10 top-0'>
+
+              {/* User Profile Section */}
+              <div className='w-full h-[120px] border-b px-2 py-2 flex items-start justify-start gap-x-1'>
+                <div className='w-[16%] h-full py-2'>
+                  <div className='w-[40px] h-[40px] rounded-full bg-gray-200'>
+                    {profileImage && (
+                      <img
+                        src={profileImage}
+                        alt="Profile"
+                        className="w-full h-full rounded-full object-cover"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div className='w-[80%] h-full p-2 flex flex-col'>
+                  <div className='flex flex-col'>
+                    <label>Shivam Yadav</label>
+                    <label>@ShivamICoder</label>
+                  </div>
+                  <Link href="/view-channel" className='mt-4 text-sm font-semibold text-blue-500'>
+                    <span>View Your Channel</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Account Settings Section */}
+              <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
+                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">Google Account</label>
+                </Link>
+                <Link href="/switch-account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">Switch account</label>
+                </Link>
+                <Link href="/sign-out" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">Sign out</label>
+                </Link>
+              </ul>
+
+              {/* YouTube Features Section */}
+              <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
+                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">YouTube Studio</label>
+                </Link>
+                <Link href="/switch-account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">Purchases and Memberships</label>
+                </Link>
+              </ul>
+
+              {/* Settings Section */}
+              <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-4'>
+                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">Settings</label>
+                </Link>
+              </ul>
+
+              {/* Help and Feedback Section */}
+              <ul className='w-full flex flex-col gap-y-2 px-2 py-4'>
+                <Link href="/account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">Help</label>
+                </Link>
+                <Link href="/switch-account" className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                  <label className="text-[14px] md:text-[16px]">Send Feedback</label>
+                </Link>
+              </ul>
+            </div>
           )}
         </div>
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          onChange={handleFileChange}
-          accept="image/*"
-        />
       </div>
     </div>
   );
