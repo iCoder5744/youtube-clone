@@ -87,71 +87,26 @@ const Sidebar = () => {
         <>
             {/* Sidebar */}
             <div
-                className={`fixed left-0 mt-14  max-sm:hidden bg-gray-50 h-screen transition-all duration-300 
+                className={`fixed left-0 mt-14  max-md:hidden bg-gray-50 h-screen transition-all duration-300 
                 ${isOpen ? "w-[220px]" : "w-0"} `}
             >
                 {/* Sidebar Content */}
-                <div className="h-full overflow-hidden hover:overflow-y-auto pb-8 pl-0.5">
-                    <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-3 pb-4">
-                        {menuItems1.map(({ href, icon: Icon, label }) => (
-                            <Link key={href} href={href}
-                                className={`flex text-start items-center px-4 rounded-xl transition-all duration-200 
-                            ${(pathname === href || (pathname === "/" && href === "/home")) ? "bg-gray-100" : "hover:bg-gray-200"}`}>
-                                <Icon className="w-6 h-6" />
-                                <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
-                            </Link>
-                        ))}
-                    </ul>
-
-                    <ul className="flex flex-col list-none mx-2 pt-4">
-                        {profileItem.map(({ href, label, icon: Icon }) => (
-                            <Link key={href} href={href}
-                                className={`flex justify-start items-center px-4 py-2 rounded-xl transition-all duration-200 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
-                                <li className="w-10 text-md font-semibold">{label}</li>
-                                <Icon className="w-5 h-5" />
-                            </Link>
-                        ))}
-                    </ul>
-
-                    <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-2 pb-4">
-                        {menuItems2.map(({ href, icon: Icon, label }) => (
-                            <Link key={href} href={href}
-                                className={`flex text-start items-center px-4 rounded-xl transition-all duration-200 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
-                                <Icon className="w-6 h-6" />
-                                <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
-                            </Link>
-                        ))}
-                    </ul>
-
-                    <ul className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-2 pb-4">
-                        <h1 className="w-full pl-4 py-2 text-md font-semibold">Explore</h1>
-                        {exploreItems.map(({ href, icon: Icon, label }) => (
-                            <Link key={href} href={href}
-                                className={`flex text-start items-center pl-4 rounded-xl transition-all duration-200 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
-                                <Icon className="w-6 h-6" />
-                                <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
-                            </Link>
-                        ))}
-                    </ul>
-
-                    <ul className="flex flex-col space-y-1 list-none mx-2 pt-2 mb-6">
-                        {settingsItems.map(({ href, icon: Icon, label }) => (
-                            <Link key={href} href={href}
-                                className={`flex text-start items-center rounded-xl transition-all duration-200 px-4 
-                            ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
-                                <Icon className="w-6 h-6" />
-                                <li className="w-full pl-6 py-2 text-sm">{label}</li>
-                            </Link>
-                        ))}
-                    </ul>
+                <div className="h-full overflow-hidden hover:overflow-y-auto pb-8 pl-1">
+                    {[menuItems1, menuItems2, exploreItems, settingsItems].map((section, index) => (
+                        <ul key={index} className="flex flex-col border-b border-gray-300 space-y-1 list-none mx-2 pt-3 pb-4">
+                            {section.map(({ href, icon: Icon, label }) => (
+                                <Link key={href} href={href} className={`flex text-start items-center px-4 rounded-xl transition-all duration-200 ${pathname === href ? "bg-gray-100" : "hover:bg-gray-200"}`}>
+                                    <Icon className="w-6 h-6" />
+                                    <li className="w-full pl-6 py-2 text-sm font-normal">{label}</li>
+                                </Link>
+                            ))}
+                        </ul>
+                    ))}
                 </div>
             </div>
 
-            {/* Main Icons (Shown when sidebar is hidden on larger screens) */}
-            <div className={`fixed left-0 mt-14 max-sm:hidden bg-gray-50 transition-ease-in duration-500 ${isOpen ? "hidden" : "block"}`}>
+            {/* Main Icons - Large screens */}
+            <div className={`fixed left-0 mt-14 max-sm:hidden max-md:block bg-gray-50 transition-ease-in duration-500 ${isOpen ? "hidden" : "block"}`}>
                 <ul className="flex flex-col list-none space-y-6  pt-3 ">
                     {mainIcon.map(({ href, label, icon: Icon }) => (
                         <Link key={href} href={href}
@@ -163,7 +118,7 @@ const Sidebar = () => {
                 </ul>
             </div>
 
-            {/* Main Icons (Shown on small screens) */}
+            {/* Main Icons - Small screens */}
             <div className={`fixed bottom-0 left-0 right-0 bg-gray-50 sm:hidden ${isOpen ? "hidden" : "block"}`}>
                 <ul className="flex justify-around list-none py-1">
                     {mainIcon.map(({ href, label, icon: Icon }) => (
@@ -176,7 +131,7 @@ const Sidebar = () => {
                 </ul>
             </div>
 
-            
+
         </>
     );
 };

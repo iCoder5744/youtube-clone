@@ -19,8 +19,8 @@ function MainLayout({ children }) {
         {/* Main Content (Adjust margin dynamically) */}
         <div
           className={`flex-1 overflow-y-auto mt-14 min-h-screen transition-all duration-300 w-full ${
-            isOpen ? "sm:ml-[220px]" : "ml-0"
-          } p-4`}
+            isOpen ? "md:ml-[220px]"  : "sm:ml-[80px]"
+          }`}
         >
           {children}
         </div>

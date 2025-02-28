@@ -130,7 +130,7 @@ const Navbar = ({
   const toggleProfileDropdown = () => setIsProfileDropdownVisible(!isProfileDropdownVisible);
 
   return (
-    <div className='fixed flex flex-row w-full items-center justify-between mx-auto bg-white z-50'>
+    <div className=' fixed px-1 flex flex-row w-full items-center justify-between mx-auto bg-white z-50'>
       {/* Left Side Content */}
       <div className="flex items-center justify-between px-4 py-4 sm:py-2">
         <div onClick={toggleSidebar} className="w-[58px] hidden sm:block">
