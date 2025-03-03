@@ -130,11 +130,11 @@ const Navbar = ({
   const toggleProfileDropdown = () => setIsProfileDropdownVisible(!isProfileDropdownVisible);
 
   return (
-    <div className=' fixed px-1 flex flex-row w-full items-center justify-between mx-auto bg-white z-50'>
+    <div className=' fixed px-1 -top-1 h-16 flex flex-row w-full items-center justify-between mx-auto bg-white  z-50'>
       {/* Left Side Content */}
       <div className="flex items-center justify-between px-4 py-4 sm:py-2">
         <div onClick={toggleSidebar} className="w-[58px] hidden sm:block">
-          <IconButton>
+          <IconButton >
             <MenuIcon style={{ fontSize: '24px', minWidth: '24px', minHeight: '24px' }} />
           </IconButton>
         </div>
@@ -207,7 +207,7 @@ const Navbar = ({
 
           {/* Dropdown Content */}
           {isCreateDropdownVisible && (
-            <div className='absolute sm:w-[160px] md:w-[170px] xl:w-[180px] h-fit mt-2 p-2 gap-y-3 border rounded-md flex flex-col items-center justify-center shadow-md z-50 left-0'>
+            <div className='absolute sm:w-[160px] md:w-[170px] xl:w-[180px] h-fit mt-2 p-2 gap-y-3 border bg-white rounded-md flex flex-col items-center justify-center shadow-md z-50 left-0'>
               {createDropdownOptions.map((option, index) => (
                 <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
                   {option.icon}
@@ -242,7 +242,7 @@ const Navbar = ({
           </div>
 
           {isProfileDropdownVisible && (
-            <div className='absolute w-[260px] md:w-[280px] h-fit mt-2 gap-y-1 border rounded-md flex flex-col items-start bg-white shadow-md z-50 right-0 md:right-10 top-8 md:top-0 max-h-[650px] overflow-hidden'>
+            <div className='absolute w-[260px] md:w-[280px] h-fit mt-2 gap-y-1 border rounded-md flex flex-col items-start bg-gray-50 shadow-md z-50 right-0 md:right-10 top-8 md:top-0 max-h-[650px] overflow-hidden'>
               {/* User Profile Section (Sticky) */}
               <div className='sticky top-0 z-40 w-full h-[120px] border-b px-2 py-2 flex items-start justify-start gap-x-1 bg-white'>
                 <div className='w-[16%] h-full py-2'>

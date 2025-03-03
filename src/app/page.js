@@ -53,6 +53,27 @@ const videos = [
     description: "mackfornia assmina ...",
     uploader: "Block Baster",
     views: "56K views"
+  },
+  {
+    thumbnail: "/images/image-4.jpg",
+    title: "Ram Setu (HD) Full Hindi Movie",
+    description: "Akshay Kumar, Raveena...",
+    uploader: "Goldmines Bollywood",
+    views: "54M views"
+  },
+  {
+    thumbnail: "/images/image-5.jpg",
+    title: "Chase Full Movie ",
+    description: "Jack Fernaldish, lion seni .......",
+    uploader: "Block Baster",
+    views: "56K views"
+  },
+  {
+    thumbnail: "/images/image-6.jpg",
+    title: "Cradle of Faith",
+    description: "mackfornia assmina ...",
+    uploader: "Block Baster",
+    views: "56K views"
   }
 ];
 
@@ -72,11 +93,9 @@ const Home = () => {
     <div className='relative flex flex-col w-full '>
       {/* Fixed Slider Section */}
       <div
-        className={`fixed top-14 h-14 flex items-center bg-white z-10 transition-all duration-300`}
-        style={{
-          left: isOpen ? '220px' : '80px',
-          width: isOpen ? 'calc(100% - 220px)' : 'calc(100% - 80px)',
-        }}
+        className={`fixed top-14 h-14 w-ful flex items-center text-center bg-white z-30 transition-all duration-300${
+          isOpen ? "lg:ml-[220px]"  : "md:ml-[80px]"
+        }`}
       >
         <button onClick={() => scroll("left")} className="px-2 h-10 mx-2 bg-white">
           <ArrowBackIosNewOutlinedIcon className='text-black max-w-5 max-h-5' />
@@ -99,31 +118,41 @@ const Home = () => {
           ))}
         </div>
 
-        <button onClick={() => scroll("right")} className="px-2 h-10 mx-2 bg-white">
+        <button onClick={() => scroll("right")} className="px-2 h-10 mx-2">
           <ArrowForwardIosOutlinedIcon className='text-black w-5 h-5' />
         </button>
       </div>
 
       {/* Content Section */}
-      <div className='w-full min-h-screen mt-14 px-6 sm:px-4 md:px-2 py-4 flex justify-center bg-green-300 transition-all duration-300'      
-      >
-        <div className='w-full grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 bg-gray-400'>
+      <div className='w-full min-h-screen mt-14 py-2 px-4 sm:py-4 md:px-4 lg:px-6 flex justify-center transition-all duration-300 z-10'>
+        <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3  gap-4'>
           {videos.map((video, index) => (
-            <div key={index} className='w-full h-[fit] bg-red-100 rounded-xl hover:shadow-md '>
-              <img src={video.thumbnail} alt={video.title} className='w-full h-[220px] rounded-xl hover:rounded-none transition-all duration-300' />
-              <div className='p-2 flex justify-start gap-x-2 h-[120px]'>
-                <div className='min-w-10 h-10 bg-gray-300 rounded-full'></div>
-                <div className='space-y-1 h-full'>
-                  <h3 className='sm:text:[12px] md:text-[13px] lg:text-[14px] font-bold text-black'>{video.title}</h3>
-                  <p className='sm:text:[12px] sm:text-[13px] md:text-[14px] text-gray-800'>{video.description}</p>
-                  <p className='sm:text-[12px] md:text-[13px] lg:text-[14px] text-gray-800'>{video.uploader}</p>                
-                  <p className='sm:[12px] md:text-[13px] text-gray-500'>{video.views}</p>                    
+            <div key={index} className='flex flex-col rounded-xl hover:shadow-md'>
+              <div className='relative pb-[56.25%]'>
+                <img src={video.thumbnail}
+                  title={video.title}
+                  className='absolute  w-full h-full rounded-t-xl hover:rounded-none transition-all duration-200'
+                  frameBorder='0'
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                  allowFullScreen
+                />
+              </div>
+              <div className='p-2 flex'>
+                <div className='w-12 h-12 bg-gray-300 rounded-full'></div>
+                <div className='ml-2'>
+                  <h3 className='text-sm font-bold text-black'>{video.title}</h3>
+                  <p className='text-xs text-gray-800'>{video.description}</p>
+                  <div className='flex flex-col'>
+                    <p className='text-xs text-gray-600'>{video.uploader}</p>
+                    <p className='text-xs text-gray-500'>{video.views}</p>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
     </div>
   );
 };
