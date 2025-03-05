@@ -202,6 +202,8 @@ const Home = () => {
     };
   }, []);
 
+  
+
   return (
     <div className='relative flex flex-col w-full'>
       {/* Fixed Slider Section */}

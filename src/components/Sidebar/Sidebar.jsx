@@ -132,7 +132,7 @@ const Sidebar = () => {
                 <div className="fixed left-0 mt-14 hidden lg:block bg-gray-50 transition-all duration-500">
                     <ul className="flex flex-col list-none space-y-6 pt-3 px-2">
                         {mainIcon.map(({ href, label, icon: Icon }) => (
-                            <Link key={href} href={href} className="flex flex-col items-center text-center p-2 hover:bg-gray-100 rounded-xl transition-all duration-200">
+                            <Link key={href} href={href} className="flex flex-col items-center text-center p-1  hover:bg-gray-100 rounded-xl transition-all duration-200">
                                 <Icon className="w-6 h-6 font-extralight" />
                                 <li className="text-[10px] font-light">{label}</li>
                             </Link>

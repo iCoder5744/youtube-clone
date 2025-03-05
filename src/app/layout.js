@@ -7,14 +7,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" type="image/png" />
       </head>
-      <body>
-      <SidebarProvider>
-          <MainLayout>{children}</MainLayout>
+      <body>      
+        <SidebarProvider>          
+            <MainLayout>{children}</MainLayout>
         </SidebarProvider>
       </body>
     </html>
