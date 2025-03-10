@@ -1,8 +1,9 @@
 "use client";
 
 import { useSidebar } from '@/components/Sidebar/SidebarContext';
-import React, { useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import Image from 'next/image';
 
 const categories = [
   "All", "Music", "Latest", "Recent", "Mawra Hocane", "Masala films",
@@ -52,29 +53,22 @@ const videos = [
     description: "mackfornia assmina ...",
     uploader: "Block Baster",
     views: "56K views"
-  },
-  {
-    thumbnail: "/images/image-4.jpg",
-    title: "Ram Setu (HD) Full Hindi Movie",
-    description: "Akshay Kumar, Raveena...",
-    uploader: "Goldmines Bollywood",
-    views: "54M views"
-  },
-  {
-    thumbnail: "/images/image-5.jpg",
-    title: "Chase Full Movie ",
-    description: "Jack Fernaldish, lion seni .......",
-    uploader: "Block Baster",
-    views: "56K views"
-  },
-  {
-    thumbnail: "/images/image-6.jpg",
-    title: "Cradle of Faith",
-    description: "mackfornia assmina ...",
-    uploader: "Block Baster",
-    views: "56K views"
   }
 ];
+
+// // Shorts Data
+// const shortsData = [
+//   { id: 1, title: "Amazing wild elephant food request.#shorts...", views: "35k Views ", thumbnail: "/path/to/thumbnail1.jpg" },
+//   { id: 2, title: "Lali Bali Bindiya #viralvideo...", views: "37k Views ", thumbnail: "/path/to/thumbnail2.jpg" },
+//   { id: 3, title: "Truck driver Life mini vlog #truckdriver...", views: "25k Views ", thumbnail: "/path/to/thumbnail3.jpg" },
+//   { id: 4, title: "King Size Fish Fry...", views: "37k Views ", thumbnail: "/path/to/thumbnail4.jpg" },
+//   { id: 5, title: "Tamanna bhatiya Kolkata live...", views: "20k Views ", thumbnail: "/path/to/thumbnail5.jpg" },
+//   // Add more shorts data as needed
+// ];
+
+
+
+
 
 const Home = () => {
   const { isOpen } = useSidebar();
@@ -93,6 +87,8 @@ const Home = () => {
       scrollRef.current.scrollTo({ left: scrollLeft + scrollAmount, behavior: "smooth" });
     }
   };
+
+  
 
 
   useEffect(() => {
@@ -202,6 +198,7 @@ const Home = () => {
     };
   }, []);
 
+
   
 
   return (
@@ -212,7 +209,7 @@ const Home = () => {
           }`}
       >
 
-      {/* // left arrow button  */}
+        {/* // left arrow button  */}
         <button
           onClick={() => scroll("left")}
           className="px-2 h-10 mx-2 bg-white hover:bg-gray-100 rounded-full"
@@ -223,7 +220,7 @@ const Home = () => {
         <div
           ref={scrollRef}
           className="flex space-x-3 w-full overflow-x-auto no-scrollbar"
-          style={{ scrollBehavior: "smooth", scrollbarWidth:'none' }}
+          style={{ scrollBehavior: "smooth", scrollbarWidth: 'none' }}
         >
           <style jsx>{`
             .no-scrollbar::-webkit-scrollbar {
@@ -247,13 +244,15 @@ const Home = () => {
         </div>
 
         {/* right arrow  */}
-        <button className=" w-7 h-10 bg-white">
-        </button>
+        <div className=" w-7 h-10 bg-white">
+        </div>
 
       </div>
 
       {/* Content Section */}
-      <div className='w-full min-h-screen mt-14 py-2 px-4 sm:py-4 md:px-4 lg:px-6 flex justify-center transition-all duration-300 z-10'>
+      <div className='w-full min-h-screen mt-14 py-2 px-4 sm:py-4 md:px-4 lg:px-6 flex flex-col justify-center transition-all duration-300 z-10'>
+
+        {/* popular vedios */}
         <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4'>
           {videos.map((video, index) => (
             <div key={index} className='flex flex-col rounded-xl hover:shadow-md'>
@@ -279,6 +278,46 @@ const Home = () => {
             </div>
           ))}
         </div>
+
+
+
+        <div className="w-full h-[400px] my-4 bg-red-400 border overflow-hidden">
+          {/* Shorts Header */}
+          {/* <div className="flex items-center mb-4">
+            <Image
+              src="/images/youtube-shorts.jpg"
+              alt="Shorts"
+              width={90}
+              height={80}
+            />
+          </div> */}
+
+          {/* Shorts Container */}
+          {/* <div className="relative w-full h-full overflow-hidden">
+            <div className="flex justify-center  gap-4 items-stretch">
+              {shortsData.slice(0, 5).map((short) => (
+                <div key={short.id} className="flex-shrink-0 grid w-[80%] sm:w-[30%] md:w-[30%] lg:w-[18%]">
+                  <div className="relative w-full aspect-[13/16] sm:aspect-[9/16] bg-gray-300 rounded-lg mb-1 overflow-hidden">
+                    <Image
+                      src={short.thumbnail}
+                      alt={short.title}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-y-1 justify-between h-[60px]">
+                    <p className="text-sm font-medium text-black bg-green-400 ">{short.title}</p>
+                    <span className="text-xs font-thin">{short.views}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div> */}
+        </div>
+
+
+
+
       </div>
     </div>
   );
