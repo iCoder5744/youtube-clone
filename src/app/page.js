@@ -57,14 +57,14 @@ const videos = [
 ];
 
 // // Shorts Data
-// const shortsData = [
-//   { id: 1, title: "Amazing wild elephant food request.#shorts...", views: "35k Views ", thumbnail: "/path/to/thumbnail1.jpg" },
-//   { id: 2, title: "Lali Bali Bindiya #viralvideo...", views: "37k Views ", thumbnail: "/path/to/thumbnail2.jpg" },
-//   { id: 3, title: "Truck driver Life mini vlog #truckdriver...", views: "25k Views ", thumbnail: "/path/to/thumbnail3.jpg" },
-//   { id: 4, title: "King Size Fish Fry...", views: "37k Views ", thumbnail: "/path/to/thumbnail4.jpg" },
-//   { id: 5, title: "Tamanna bhatiya Kolkata live...", views: "20k Views ", thumbnail: "/path/to/thumbnail5.jpg" },
-//   // Add more shorts data as needed
-// ];
+const shortsData = [
+  { id: 1, title: "Amazing wild elephant food request.#shorts...", views: "35k Views ", thumbnail: "/path/to/thumbnail1.jpg" },
+  { id: 2, title: "Lali Bali Bindiya #viralvideo...", views: "37k Views ", thumbnail: "/path/to/thumbnail2.jpg" },
+  { id: 3, title: "Truck driver Life mini vlog #truckdriver...", views: "25k Views ", thumbnail: "/path/to/thumbnail3.jpg" },
+  { id: 4, title: "King Size Fish Fry...", views: "37k Views ", thumbnail: "/path/to/thumbnail4.jpg" },
+  { id: 5, title: "Tamanna bhatiya Kolkata live...", views: "20k Views ", thumbnail: "/path/to/thumbnail5.jpg" },
+  // Add more shorts data as needed
+];
 
 
 
@@ -281,19 +281,19 @@ const Home = () => {
 
 
 
-        <div className="w-full h-[400px] my-4 bg-red-400 border overflow-hidden">
+        <div className="w-full h-fit my-4  border overflow-hidden">
           {/* Shorts Header */}
-          {/* <div className="flex items-center mb-4">
+          <div className="flex items-center mb-1">
             <Image
               src="/images/youtube-shorts.jpg"
               alt="Shorts"
               width={90}
               height={80}
             />
-          </div> */}
+          </div>
 
           {/* Shorts Container */}
-          {/* <div className="relative w-full h-full overflow-hidden">
+          <div className="relative w-full h-full overflow-hidden">
             <div className="flex justify-center  gap-4 items-stretch">
               {shortsData.slice(0, 5).map((short) => (
                 <div key={short.id} className="flex-shrink-0 grid w-[80%] sm:w-[30%] md:w-[30%] lg:w-[18%]">
@@ -306,13 +306,13 @@ const Home = () => {
                     />
                   </div>
                   <div className="flex flex-col gap-y-1 justify-between h-[60px]">
-                    <p className="text-sm font-medium text-black bg-green-400 ">{short.title}</p>
+                    <p className="text-sm font-medium text-black  ">{short.title}</p>
                     <span className="text-xs font-thin">{short.views}</span>
                   </div>
                 </div>
               ))}
             </div>
-          </div> */}
+          </div>
         </div>
 
 

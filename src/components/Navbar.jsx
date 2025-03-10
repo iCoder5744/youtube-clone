@@ -323,8 +323,8 @@ const Navbar = ({
         ) : (
           <button
             href="/auth/login"
-            style={{ textTransform: 'none', minWidth: '90px', minHeight: '40px' }}
-            className="flex flex-row items-center text-center text-[14px] text-white font-medium rounded-lg px-4 py-2 bg-blue-600 hover:bg-blue-700"
+            style={{ textTransform: 'none', minWidth: '70px', minHeight: '40px' }}
+            className="flex flex-row items-center justify-center text-center text-[14px] text-white font-medium rounded-lg px-2 py-2 bg-blue-600 hover:bg-blue-700"
           >
             Login
           </button>
