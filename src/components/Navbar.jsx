@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from "next/link";
 import Image from "next/image";
+
 import { IconButton, Button } from "@mui/material";
 import {
   SearchRounded as SearchRoundedIcon,
@@ -22,8 +23,11 @@ import {
   SettingsOutlined as SettingsOutlinedIcon,
   HelpOutlineOutlined as HelpOutlineOutlinedIcon,
   FeedbackOutlined as FeedbackOutlinedIcon,
+  UnfoldLessDoubleRounded,
 } from '@mui/icons-material';
 import { useSidebar } from './Sidebar/SidebarContext';
+import { useSession, signOut } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 const Navbar = ({
   profileData = {
@@ -63,7 +67,7 @@ const Navbar = ({
       {
         icon: <ExitToAppIcon className='w-6 h-6' />,
         label: "Sign out",
-        href: "/sign-out",
+        onClick: () => signOut({ callbackUrl: '/auth/login' }),
       },
     ],
     youtubeFeatures: [
@@ -105,6 +109,8 @@ const Navbar = ({
   const [isProfileDropdownVisible, setIsProfileDropdownVisible] = useState(false);
   const createDropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const savedImage = localStorage.getItem('profileImage');
@@ -227,92 +233,102 @@ const Navbar = ({
         </div>
 
         {/* Profile Image */}
-        <div className="relative" ref={profileDropdownRef}>
-          <div
-            className="w-9 h-9 bg-gray-300 rounded-full my-1 cursor-pointer"
-            onClick={toggleProfileDropdown}
-          >
-            {profileData.profileImage && (
-              <img
-                src={profileData.profileImage}
-                alt="Profile"
-                className="w-full h-full rounded-full object-cover"
-              />
+        {status === "authenticated" ? (
+          <div className="relative" ref={profileDropdownRef}>
+            <div
+              className="w-9 h-9 bg-gray-300 rounded-full my-1 cursor-pointer"
+              onClick={toggleProfileDropdown}
+            >
+              {profileData.profileImage && (
+                <img
+                  src={profileData.profileImage}
+                  alt="Profile"
+                  className="w-full h-full rounded-full object-cover"
+                />
+              )}
+            </div>
+
+            {isProfileDropdownVisible && (
+              <div className='absolute w-[260px] md:w-[280px] h-fit mt-2 gap-y-1 border rounded-md flex flex-col items-start bg-gray-50 shadow-md z-50 right-0 md:right-10 top-8 md:top-0 max-h-[650px] overflow-hidden'>
+                {/* User Profile Section (Sticky) */}
+                <div className='sticky top-0 z-40 w-full h-[120px] border-b px-2 py-2 flex items-start justify-start gap-x-1 bg-white'>
+                  <div className='w-[16%] h-full py-2'>
+                    <div className='w-[40px] h-[40px] rounded-full bg-gray-200'>
+                      {profileData.profileImage && (
+                        <img
+                          src={profileData.profileImage}
+                          alt="Profile"
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  <div className='w-[80%] h-full p-2 flex flex-col'>
+                    <div className='flex flex-col'>
+                      <label>{profileData.name}</label>
+                      <label>{profileData.username}</label>
+                    </div>
+                    <Link href="/view-channel" className='mt-4 text-sm font-semibold text-blue-500'>
+                      <span>View Your Channel</span>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* User Settings Section (Scrollable) */}
+                <div className='z-30 w-full overflow-hidden hover:overflow-y-auto'>
+                  {/* Account Settings Section */}
+                  <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
+                    {profileDropdownOptions.account.map((option, index) => (
+                      <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                        {option.icon}
+                        <label className="text-[14px] md:text-[15px]">{option.label}</label>
+                      </Link>
+                    ))}
+                  </ul>
+
+                  {/* YouTube Features Section */}
+                  <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
+                    {profileDropdownOptions.youtubeFeatures.map((option, index) => (
+                      <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                        {option.icon}
+                        <label className="text-[14px] md:text-[15px]">{option.label}</label>
+                      </Link>
+                    ))}
+                  </ul>
+
+                  {/* Settings Section */}
+                  <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-4'>
+                    {profileDropdownOptions.settings.map((option, index) => (
+                      <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                        {option.icon}
+                        <label className="text-[14px] md:text-[15px]">{option.label}</label>
+                      </Link>
+                    ))}
+                  </ul>
+
+                  {/* Help and Feedback Section */}
+                  <ul className='w-full flex flex-col gap-y-2 px-2 py-4'>
+                    {profileDropdownOptions.helpAndFeedback.map((option, index) => (
+                      <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
+                        {option.icon}
+                        <label className="text-[14px] md:text-[15px]">{option.label}</label>
+                      </Link>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             )}
           </div>
-
-          {isProfileDropdownVisible && (
-            <div className='absolute w-[260px] md:w-[280px] h-fit mt-2 gap-y-1 border rounded-md flex flex-col items-start bg-gray-50 shadow-md z-50 right-0 md:right-10 top-8 md:top-0 max-h-[650px] overflow-hidden'>
-              {/* User Profile Section (Sticky) */}
-              <div className='sticky top-0 z-40 w-full h-[120px] border-b px-2 py-2 flex items-start justify-start gap-x-1 bg-white'>
-                <div className='w-[16%] h-full py-2'>
-                  <div className='w-[40px] h-[40px] rounded-full bg-gray-200'>
-                    {profileData.profileImage && (
-                      <img
-                        src={profileData.profileImage}
-                        alt="Profile"
-                        className="w-full h-full rounded-full object-cover"
-                      />
-                    )}
-                  </div>
-                </div>
-
-                <div className='w-[80%] h-full p-2 flex flex-col'>
-                  <div className='flex flex-col'>
-                    <label>{profileData.name}</label>
-                    <label>{profileData.username}</label>
-                  </div>
-                  <Link href="/view-channel" className='mt-4 text-sm font-semibold text-blue-500'>
-                    <span>View Your Channel</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* User Settings Section (Scrollable) */}
-              <div className='z-30 w-full overflow-hidden hover:overflow-y-auto'>
-                {/* Account Settings Section */}
-                <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
-                  {profileDropdownOptions.account.map((option, index) => (
-                    <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                      {option.icon}
-                      <label className="text-[14px] md:text-[15px]">{option.label}</label>
-                    </Link>
-                  ))}
-                </ul>
-
-                {/* YouTube Features Section */}
-                <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-3'>
-                  {profileDropdownOptions.youtubeFeatures.map((option, index) => (
-                    <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                      {option.icon}
-                      <label className="text-[14px] md:text-[15px]">{option.label}</label>
-                    </Link>
-                  ))}
-                </ul>
-
-                {/* Settings Section */}
-                <ul className='w-full flex flex-col gap-y-2 border-b px-2 py-4'>
-                  {profileDropdownOptions.settings.map((option, index) => (
-                    <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                      {option.icon}
-                      <label className="text-[14px] md:text-[15px]">{option.label}</label>
-                    </Link>
-                  ))}
-                </ul>
-
-                {/* Help and Feedback Section */}
-                <ul className='w-full flex flex-col gap-y-2 px-2 py-4'>
-                  {profileDropdownOptions.helpAndFeedback.map((option, index) => (
-                    <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
-                      {option.icon}
-                      <label className="text-[14px] md:text-[15px]">{option.label}</label>
-                    </Link>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
-        </div>
+        ) : (
+          <button
+            href="/auth/login"
+            style={{ textTransform: 'none', minWidth: '90px', minHeight: '40px' }}
+            className="flex flex-row items-center text-center text-[14px] text-white font-medium rounded-lg px-4 py-2 bg-blue-600 hover:bg-blue-700"
+          >
+            Login
+          </button>
+        )}
       </div>
     </div>
   );
