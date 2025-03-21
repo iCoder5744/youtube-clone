@@ -205,7 +205,7 @@ const Home = () => {
     <div className='relative flex flex-col w-full'>
       {/* Fixed Slider Section */}
       <div
-        className={`fixed top-14 h-14 flex items-center text-center bg-white z-30 transition-all duration-300 ${isOpen ? "lg:w-[calc(100%-220px)]" : "md:w-[calc(100%-80px)] w-full"
+        className={`fixed top-12 h-14 flex items-center text-center bg-white z-30 transition-all duration-300 ${isOpen ? "lg:w-[calc(100%-220px)]" : "md:w-[calc(100%-80px)] w-full"
           }`}
       >
 
@@ -250,7 +250,7 @@ const Home = () => {
       </div>
 
       {/* Content Section */}
-      <div className='w-full min-h-screen mt-14 py-2 px-4 sm:py-4 md:px-4 lg:px-6 flex flex-col justify-center transition-all duration-300 z-10'>
+      <div className='w-full min-h-screen mt-12 py-2 sm:py-3 px-2 md:px-4 lg:px-5 bg-white flex flex-col justify-center transition-all duration-300 z-10'>
 
         {/* popular vedios */}
         <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4'>

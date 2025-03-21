@@ -136,7 +136,7 @@ const Navbar = ({
   const toggleProfileDropdown = () => setIsProfileDropdownVisible(!isProfileDropdownVisible);
 
   return (
-    <div className=' fixed px-1 -top-1 h-16 flex flex-row w-full items-center justify-between mx-auto bg-white  z-50'>
+    <div className=' fixed px-0 sm:px-1 -top-0.5 h-14 flex flex-row w-full items-center justify-between mx-auto bg-white  z-50'>
       {/* Left Side Content */}
       <div className="flex items-center justify-between px-4 py-4 sm:py-2">
         <div onClick={toggleSidebar} className="w-[58px] hidden sm:block">
@@ -154,15 +154,15 @@ const Navbar = ({
       {/* Middle Content */}
       <div className='flex items-center flex-1 max-w-[670px] ml-2 sm:ml-10 md:ml-24 xl:ml-32'>
         <div className='hidden sm:flex items-center w-full'>
-          <div className='flex w-full rounded-full border border-gray-300 bg-white'>
+          <div className='flex w-full rounded-full border border-gray-300 bg-white h-10'>
             <input
               type="text"
               placeholder='Search'
-              className='w-full outline-none pl-4 py-2 bg-transparent text-gray-500'
+              className='w-full outline-none pl-4 py-1 bg-transparent text-gray-500'
             />
             <SearchRoundedIcon
-              style={{ fontSize: '24px', minWidth: '60px', minHeight: '40px' }}
-              className='border-l-2 h-10 py-2 font-light text-gray-400 bg-gray-100 hover:bg-gray-200 transition-all duration-200 border rounded-r-full cursor-pointer'
+              style={{ fontSize: '24px', minWidth: '60px', minHeight: '39px' }}
+              className='border-l-2 h-4 py-2 font-light text-gray-400 bg-gray-100 hover:bg-gray-200 transition-all duration-200 border rounded-r-full cursor-pointer'
             />
           </div>
           <KeyboardVoiceOutlinedIcon
@@ -203,7 +203,7 @@ const Navbar = ({
         {/* Create Button with Dropdown */}
         <div className="hidden sm:block relative" ref={createDropdownRef}>
           <Button
-            style={{ textTransform: 'none', minWidth: '90px', minHeight: '40px', color: 'black' }}
+            style={{ textTransform: 'none', minWidth: '90px', minHeight: '36px', color: 'black' }}
             className="flex flex-row items-center text-center text-[12px] md:text-[14px] text-gray-600 font-medium rounded-full px-2 py-1 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
             onClick={toggleCreateDropdown}
           >
@@ -213,7 +213,7 @@ const Navbar = ({
 
           {/* Dropdown Content */}
           {isCreateDropdownVisible && (
-            <div className='absolute sm:w-[160px] md:w-[170px] xl:w-[180px] h-fit mt-2 p-2 gap-y-3 border bg-white rounded-md flex flex-col items-center justify-center shadow-md z-50 left-0'>
+            <div className='absolute sm:w-[160px] md:w-[170px] xl:w-[180px] h-fit mt-2 p-2 gap-y-1 border bg-white rounded-md flex flex-col items-center justify-center shadow-md z-50 left-0'>
               {createDropdownOptions.map((option, index) => (
                 <Link key={index} href={option.href} className='w-full px-2 py-2 gap-x-4 flex items-center justify-start bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer'>
                   {option.icon}
@@ -323,7 +323,7 @@ const Navbar = ({
         ) : (
           <button
             href="/auth/login"
-            style={{ textTransform: 'none', minWidth: '70px', minHeight: '40px' }}
+            style={{ textTransform: 'none', minWidth: '70px', minHeight: '36px' }}
             className="flex flex-row items-center justify-center text-center text-[14px] text-white font-medium rounded-lg px-2 py-2 bg-blue-600 hover:bg-blue-700"
           >
             Login
