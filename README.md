@@ -14,6 +14,13 @@ pnpm dev
 bun dev
 ```
 
+## Screenshots
+Here is the Large Screen View of the project:
+
+![Large Screen View](https://raw.githubusercontent.com/iCoder5744/youtube-clone/main/Large-Screen-View.png)
+
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
