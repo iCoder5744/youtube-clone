@@ -16,11 +16,12 @@ bun dev
 
 ## Screenshots
 Here is the Large Screen View of the project:
-
 ![Large Screen View](https://raw.githubusercontent.com/iCoder5744/youtube-clone/main/Large-Screen-View.png)
 
+Here is the Medium Screen View of the project:
 ![iPad Screen View](https://raw.githubusercontent.com/iCoder5744/youtube-clone/main/iPad-View.png)
 
+Here is the Mobile Screen View of the project:
 ![Mobile Screen View](https://raw.githubusercontent.com/iCoder5744/youtube-clone/main/Mobile-View.png)
 
 
